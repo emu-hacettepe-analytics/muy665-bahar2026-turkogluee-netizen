@@ -1,0 +1,86 @@
+---
+title: "Polls US Election 2016 Analysis"
+author: "Emre Türkoğlu"
+format: html
+editor: visual
+---
+
+install.packages("knitr")
+install.packages("rmarkdown")
+
+{r}
+library(dslabs)
+
+data("polls_us_election_2016")
+
+head(polls_us_election_2016)
+
+my_first <- "Emre"
+my_birth_year <- 1987
+
+data("polls_us_election_2016")
+data <- polls_us_election_2016
+
+k <- (nchar(my_first) + my_birth_year) %% 15 + 8
+k
+
+if (k %% 2 == 0) {
+  head(data, k)
+} else {
+  tail(data, k)
+}
+
+sum(is.na(data))
+
+na_per_column <- colSums(is.na(data))
+na_per_column_sorted <- sort(na_per_column, decreasing = TRUE)
+
+head(na_per_column_sorted, 8)
+
+new_data <- data
+
+for(col in names(new_data)){
+
+  if(is.numeric(new_data[[col]])){
+
+    new_data[[col]][is.na(new_data[[col]])] <- my_birth_year + k
+
+  } else if(is.character(new_data[[col]]) | is.factor(new_data[[col]])){
+
+    new_data[[col]][is.na(new_data[[col]])] <- paste0(my_first, "_", k)
+
+  }
+
+}
+
+if (k %% 2 == 0) {
+  head(new_data, k)
+} else {
+  tail(new_data, k)
+}
+
+sum(is.na(new_data))
+
+anyNA(new_data)
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
