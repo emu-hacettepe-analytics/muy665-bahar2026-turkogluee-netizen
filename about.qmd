@@ -1,3 +1,7 @@
+CV'mi buradan indirebilirsiniz:
+
+[CV'mi indir](assets/M. EMRE TURKOGLU.pdf)
+
 ---
 title: "Hakkımda"
 sidebar: false 
